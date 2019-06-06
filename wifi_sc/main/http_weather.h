@@ -3,6 +3,6 @@
 #define _HTTP_WEATHER_H_
 
 
-void http_weather_task(void *pvParameters);
+void http_get_task(void *pvParameters);
 
 #endif

@@ -32,7 +32,7 @@ void app_main()
 
     wifi_smartconfig_init();
 	
-	xTaskCreate(http_weather_task, "http_weather_task", 1024*10, NULL, 3, NULL);
+	xTaskCreate(http_get_task, "http_get_task", 1024*10, NULL, 3, NULL);
 	
 }
 

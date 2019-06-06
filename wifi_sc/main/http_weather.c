@@ -14,7 +14,7 @@
 #include "wifi_smartconfig.h"
 #include "http_weather.h"
 
-static const char *TAG = "http_weather";
+static const char *TAG = "http";
 
 /*
 ===========================
@@ -109,7 +109,7 @@ void cjson_to_struct_info(char *text)
 }
 
 
-void http_weather_task(void *pvParameters)
+void http_get_task(void *pvParameters)
 {
 	wifi_wait_connected();
 	ESP_LOGI(TAG, "Connected to AP, begin http example");
