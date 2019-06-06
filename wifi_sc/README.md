@@ -44,3 +44,4 @@ I (247952) sc: smartconfig over
 1. smartconfig模式
 2. nvs保存wifi信息
 3. make erase_flash 清空flash信息（如果已经保存过wifi信息了，需要先进行这一步，再进行make flash monitor）
+4. http读取天气信息，json解析
