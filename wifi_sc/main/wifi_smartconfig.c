@@ -22,7 +22,6 @@ static EventGroupHandle_t wifi_event_group;
    but we only care about one event - are we connected
    to the AP with an IP? */
 static const int CONNECTED_BIT = BIT0;
-static const int ESPTOUCH_DONE_BIT = BIT1;
 static const char *TAG = "wifi_sc";
 wifi_config_t *wifi_config;
 
@@ -65,7 +64,7 @@ static esp_err_t event_handler(void *ctx, system_event_t *event)
     case SYSTEM_EVENT_STA_GOT_IP:
 		ESP_LOGI(TAG, "SYSTEM_EVENT_STA_GOT_IP");
         xEventGroupSetBits(wifi_event_group, CONNECTED_BIT);
-		ESP_ERROR_CHECK( esp_smartconfig_stop() );
+		
         break;
 	case SYSTEM_EVENT_STA_CONNECTED:
 		ESP_LOGI(TAG, "SYSTEM_EVENT_STA_CONNECTED");
@@ -143,7 +142,9 @@ static void sc_callback(smartconfig_status_t status, void *pdata)
                 memcpy(phone_ip, (uint8_t* )pdata, 4);
                 ESP_LOGI(TAG, "Phone ip: %d.%d.%d.%d\n", phone_ip[0], phone_ip[1], phone_ip[2], phone_ip[3]);
             }
-            xEventGroupSetBits(wifi_event_group, ESPTOUCH_DONE_BIT);
+
+			
+			ESP_ERROR_CHECK( esp_smartconfig_stop() );
             break;
         default:
             break;
