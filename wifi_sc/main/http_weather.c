@@ -169,7 +169,7 @@ void http_get_task(void *pvParameters)
         }
         //获取http应答包
         do {
-            bzero(recv_buf, sizeof(recv_buf));
+			memset(recv_buf, 0, sizeof(recv_buf));
             r = read(s, recv_buf, sizeof(recv_buf)-1);
 			strcat(mid_buf,recv_buf);
         } while(r > 0);

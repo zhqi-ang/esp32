@@ -16,6 +16,7 @@
 
 #include "wifi_smartconfig.h"
 #include "http_weather.h"
+#include "https_weather.h"
 
 
 
@@ -32,7 +33,7 @@ void app_main()
 
     wifi_smartconfig_init();
 	
-	xTaskCreate(http_get_task, "http_get_task", 1024*10, NULL, 3, NULL);
+	xTaskCreate(https_get_task, "https_get_task", 1024*10, NULL, 3, NULL);
 	
 }
 
