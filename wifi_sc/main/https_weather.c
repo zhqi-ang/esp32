@@ -86,7 +86,7 @@ void https_get_task(void *pvParameters)
 
    ESP_LOGI(TAG, "Setting up the SSL/TLS structure...");
    /*
-	  * Setup SSL/TLSÏà¹Ø²ÎÊı
+	  * Setup SSL/TLSç›¸å…³å‚æ•°
 	  */
    if((ret = mbedtls_ssl_config_defaults(&conf,
 										 MBEDTLS_SSL_IS_CLIENT,
@@ -102,17 +102,17 @@ void https_get_task(void *pvParameters)
 
 	   You should consider using MBEDTLS_SSL_VERIFY_REQUIRED in your own code.
 	*/
-	/* ÓÉÓÚÖ¤Êé»á¹ıÆÚ,ËùÒÔÕâĞ©²»½øĞĞÖ¤ÊéÈÏÖ¤ */
+	/* ç”±äºè¯ä¹¦ä¼šè¿‡æœŸ,æ‰€ä»¥è¿™äº›ä¸è¿›è¡Œè¯ä¹¦è®¤è¯ */
 	mbedtls_ssl_conf_authmode(&conf, MBEDTLS_SSL_VERIFY_NONE);
-	/* ÉèÖÃËæ»úÊıÉú³ÉµÄº¯Êı¼°·½·¨ */
+	/* è®¾ç½®éšæœºæ•°ç”Ÿæˆçš„å‡½æ•°åŠæ–¹æ³• */
 	mbedtls_ssl_conf_rng(&conf, mbedtls_ctr_drbg_random, &ctr_drbg);
 	
 #ifdef CONFIG_MBEDTLS_DEBUG
-	/* ÕâÀï²»ĞèÒªÉèÖÃµ÷ÊÔº¯Êı */
+	/* è¿™é‡Œä¸éœ€è¦è®¾ç½®è°ƒè¯•å‡½æ•° */
 	mbedtls_esp_enable_debug_log(&conf, 4);
 #endif
 
-	/* ½«ssl_confµÄÏà¹ØĞÅÏ¢Ìî³äÓÚssl_ctxÖĞÈ¥,ÓÃÓÚ½øĞĞSSLÎÕÊÖÊ±Ê¹ÓÃ */
+	/* å°†ssl_confçš„ç›¸å…³ä¿¡æ¯å¡«å……äºssl_ctxä¸­å»,ç”¨äºè¿›è¡ŒSSLæ¡æ‰‹æ—¶ä½¿ç”¨ */
 	if ((ret = mbedtls_ssl_setup(&ssl, &conf)) != 0)
 	{
 		ESP_LOGE(TAG, "mbedtls_ssl_setup returned -0x%x\n\n", -ret);
@@ -120,15 +120,15 @@ void https_get_task(void *pvParameters)
 	}
 
 	wifi_wait_connected();
-	ESP_LOGI(TAG, "Connected to AP, begin http example");
+	ESP_LOGI(TAG, "Connected to AP, begin https example");
 
 	while(1)
 	{
-		//³õÊ¼»¯fd
+		//åˆå§‹åŒ–fd
 		mbedtls_net_init(&server_fd);
 	
 		ESP_LOGI(TAG, "Connecting to %s:%s...", WEB_SERVER, WEB_PORT);
-		//½øĞĞTCPÁ¬½Ó
+		//è¿›è¡ŒTCPè¿æ¥
 		if ((ret = mbedtls_net_connect(&server_fd, WEB_SERVER,
 									 WEB_PORT, MBEDTLS_NET_PROTO_TCP)) != 0)
 		{
@@ -138,11 +138,11 @@ void https_get_task(void *pvParameters)
 
 		ESP_LOGI(TAG, "Connected.");
 									 
-		// ÉèÖÃ·¢ËÍÒÔ¼°½ÓÊÕµÄÊ±ºò,µ÷ÓÃµÄÄÚ²¿º¯Êı
+		// è®¾ç½®å‘é€ä»¥åŠæ¥æ”¶çš„æ—¶å€™,è°ƒç”¨çš„å†…éƒ¨å‡½æ•°
 		mbedtls_ssl_set_bio(&ssl, &server_fd, mbedtls_net_send, mbedtls_net_recv, NULL);
 
 		ESP_LOGI(TAG, "Performing the SSL/TLS handshake...");
-		//ÎÕÊÖ
+		//æ¡æ‰‹
 		while ((ret = mbedtls_ssl_handshake(&ssl)) != 0)
 		{
 			if (ret != MBEDTLS_ERR_SSL_WANT_READ && ret != MBEDTLS_ERR_SSL_WANT_WRITE)
@@ -226,5 +226,6 @@ void https_get_task(void *pvParameters)
 
 
 }
+
 
 

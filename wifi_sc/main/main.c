@@ -17,6 +17,7 @@
 #include "wifi_smartconfig.h"
 #include "http_weather.h"
 #include "https_weather.h"
+#include "wifi_sntp.h"
 
 
 
@@ -32,8 +33,10 @@ void app_main()
     ESP_ERROR_CHECK( err );
 
     wifi_smartconfig_init();
-	
-	xTaskCreate(https_get_task, "https_get_task", 1024*10, NULL, 3, NULL);
+
+	//xTaskCreate(http_get_task, "http_get_task", 1024*10, NULL, 3, NULL);
+	//xTaskCreate(https_get_task, "https_get_task", 1024*10, NULL, 3, NULL);
+	xTaskCreate(sntp_get_task, "sntp_get_task", 1024*3, NULL, 3, NULL);
 	
 }
 

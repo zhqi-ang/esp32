@@ -177,6 +177,8 @@ void http_get_task(void *pvParameters)
         cjson_to_struct_info(mid_buf);
         //关闭socket，http是短连接
         close(s);
+
+		
 		while(1)
         //延时一会
         for(int countdown = 10; countdown >= 0; countdown--) {
