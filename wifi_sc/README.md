@@ -17,3 +17,4 @@ This example shows how ESP32 connects to AP with ESPTOUCH. Example does the foll
 4. make flash monitor
 5. 密码错误/连接断开，在flash没有密码的情况下会重新进入smartconfig模式；有密码则会重连
 6. http读取天气信息，json解析
+7. 读取sntp，获取时间
